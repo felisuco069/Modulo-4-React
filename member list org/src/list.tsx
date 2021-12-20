@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, generatePath } from "react-router-dom";
+import { getMembers } from "./api";
 
 interface MemberEntity {
   id: string;
@@ -9,26 +10,28 @@ interface MemberEntity {
 
 export const ListPage: React.FC = () => {
   const [members, setMembers] = React.useState<MemberEntity[]>([]);
-  const [org, setOrg] = React.useState("lemoncode");
+  const [inputValue, setInputValue] = React.useState("lemoncode");
 
   React.useEffect(() => {
-    fetch(`https://api.github.com/orgs/${org}/members`)
-      .then((response) => response.json())
-      .then((json) => setMembers(json));
-  }, [org]);
-
-  const handleClick = () => {
-    setOrg(org);
-  };
+    getMembers(inputValue).then((data) => {
+      setMembers(data);
+    });
+  }, []);
 
   const handleChange = (e) => {
-    setOrg(e.target.value);
+    setInputValue(e.target.value);
+  };
+
+  const handleClick = () => {
+    getMembers(inputValue).then((data) => {
+      setMembers(data);
+    });
   };
 
   return (
     <>
       <h2>Hello from List page</h2>
-      <input onChange={handleChange} value={org}></input>
+      <input onChange={handleChange} value={inputValue}></input>
       <button onClick={handleClick}>Search</button>
       <table className="table">
         <thead>
