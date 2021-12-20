@@ -17,14 +17,18 @@ export const ListPage: React.FC = () => {
       .then((json) => setMembers(json));
   }, [org]);
 
-  const handleClick = (e) => {
+  const handleClick = () => {
+    setOrg(org);
+  };
+
+  const handleChange = (e) => {
     setOrg(e.target.value);
   };
 
   return (
     <>
       <h2>Hello from List page</h2>
-      <input value={org}></input>
+      <input onChange={handleChange} value={org}></input>
       <button onClick={handleClick}>Search</button>
       <table className="table">
         <thead>
