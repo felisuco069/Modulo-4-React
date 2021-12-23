@@ -11,7 +11,7 @@ export const LoginPage: React.FC = () => {
     e.preventDefault();
 
     if (username === "admin" && password === "test") {
-      navigate("/list");
+      navigate("/list/:page");
     } else {
       alert("User / password not valid, psst... admin / test");
     }

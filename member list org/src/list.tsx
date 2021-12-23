@@ -7,23 +7,39 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { getMembers } from "./api";
-import { GetMemberTableRow } from "./component/members-table-row";
+import { GetMemberTableRow } from "./common-app/members-table-row";
 import { MyContext } from "./core/myContext";
 import { StyledTableCell, useStyles } from "./layaut/table-layaut";
+import { useParams } from "react-router-dom";
+import { PaginationControlled } from "./common-app/pagination";
 
 export const ListPage: React.FC = () => {
+  // const { page } = useParams();
+  // console.log(page);
   const { inputValue, setInputValue, members, setMembers } =
     React.useContext(MyContext);
 
   React.useEffect(() => {
     getMembers(inputValue).then((data) => {
-      setMembers(data);
+      const numPages: number = Math.ceil(data.length / 5);
+      const arrayPerPages = new Array(numPages);
+
+      for (let i = 0; i < arrayPerPages.length; i++) {
+        arrayPerPages[i] = data.slice(i * 5, i * 5 + 5);
+      }
+      setMembers(arrayPerPages[0]);
     });
   }, []);
 
   const handleClick = () => {
     getMembers(inputValue).then((data) => {
-      setMembers(data);
+      const numPages: number = Math.ceil(data.length / 5);
+      const arrayPerPages = new Array(numPages);
+
+      for (let i = 0; i < arrayPerPages.length; i++) {
+        arrayPerPages[i] = data.slice(i * 5, i * 5 + 5);
+      }
+      setMembers(arrayPerPages[0]);
     });
   };
   const classes = useStyles();
@@ -60,6 +76,7 @@ export const ListPage: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <PaginationControlled />
     </>
   );
 };
