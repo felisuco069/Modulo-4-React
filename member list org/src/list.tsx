@@ -14,32 +14,25 @@ import { useParams } from "react-router-dom";
 import { PaginationControlled } from "./common-app/pagination";
 
 export const ListPage: React.FC = () => {
-  // const { page } = useParams();
-  // console.log(page);
-  const { inputValue, setInputValue, members, setMembers } =
+  const { page } = useParams();
+  const { inputValue, setInputValue, members, setMembers, pages, setPages } =
     React.useContext(MyContext);
 
   React.useEffect(() => {
     getMembers(inputValue).then((data) => {
-      const numPages: number = Math.ceil(data.length / 5);
-      const arrayPerPages = new Array(numPages);
-
-      for (let i = 0; i < arrayPerPages.length; i++) {
-        arrayPerPages[i] = data.slice(i * 5, i * 5 + 5);
-      }
-      setMembers(arrayPerPages[0]);
+      setMembers(
+        data.slice((Number(page) - 1) * 5, (Number(page) - 1) * 5 + 5)
+      );
+      setPages(Math.ceil(data.length / 5));
     });
-  }, []);
+  }, [page]);
 
   const handleClick = () => {
     getMembers(inputValue).then((data) => {
-      const numPages: number = Math.ceil(data.length / 5);
-      const arrayPerPages = new Array(numPages);
-
-      for (let i = 0; i < arrayPerPages.length; i++) {
-        arrayPerPages[i] = data.slice(i * 5, i * 5 + 5);
-      }
-      setMembers(arrayPerPages[0]);
+      setMembers(
+        data.slice((Number(page) - 1) * 5, (Number(page) - 1) * 5 + 5)
+      );
+      setPages(Math.ceil(data.length / 5));
     });
   };
   const classes = useStyles();
@@ -76,7 +69,7 @@ export const ListPage: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <PaginationControlled />
+      <PaginationControlled pages={pages} />
     </>
   );
 };
