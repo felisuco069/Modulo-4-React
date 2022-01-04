@@ -9,6 +9,6 @@ export interface Context {
   setInputValue: (value: string) => void;
   members: MemberEntity[];
   setMembers: (value: MemberEntity[]) => void;
-  pages: number;
-  setPages: (value: number) => void;
+  listPage: number;
+  setListPage: (value: number) => void;
 }

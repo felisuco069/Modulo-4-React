@@ -6,15 +6,14 @@ export const MyContext = React.createContext<Context>({
   setInputValue: (value) => {},
   members: [],
   setMembers: (value) => {},
-  pages: 0,
-  setPages: (value) => {},
+  listPage: 1,
+  setListPage: (value) => {},
 });
 
 export const MyContextProvider: React.FC = ({ children }) => {
   const [inputValue, setInputValue] = React.useState("lemoncode");
   const [members, setMembers] = React.useState([]);
-  const [pages, setPages] = React.useState(1);
-
+  const [listPage, setListPage] = React.useState(1);
   return (
     <MyContext.Provider
       value={{
@@ -22,8 +21,8 @@ export const MyContextProvider: React.FC = ({ children }) => {
         setInputValue,
         members,
         setMembers,
-        pages,
-        setPages,
+        listPage,
+        setListPage,
       }}
     >
       {children}

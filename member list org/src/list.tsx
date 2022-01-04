@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, TextField } from "@material-ui/core";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
@@ -10,13 +10,21 @@ import { getMembers } from "./api";
 import { GetMemberTableRow } from "./common-app/members-table-row";
 import { MyContext } from "./core/myContext";
 import { StyledTableCell, useStyles } from "./layaut/table-layaut";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PaginationControlled } from "./common-app/pagination";
 
 export const ListPage: React.FC = () => {
   const { page } = useParams();
-  const { inputValue, setInputValue, members, setMembers, pages, setPages } =
-    React.useContext(MyContext);
+  const navigate = useNavigate();
+  const [pages, setPages] = useState(1);
+  const {
+    inputValue,
+    setInputValue,
+    members,
+    setMembers,
+    listPage,
+    setListPage,
+  } = React.useContext(MyContext);
 
   React.useEffect(() => {
     getMembers(inputValue).then((data) => {
@@ -24,10 +32,12 @@ export const ListPage: React.FC = () => {
         data.slice((Number(page) - 1) * 5, (Number(page) - 1) * 5 + 5)
       );
       setPages(Math.ceil(data.length / 5));
+      setListPage(Number(page));
     });
   }, [page]);
 
   const handleClick = () => {
+    navigate(`/list/1`);
     getMembers(inputValue).then((data) => {
       setMembers(
         data.slice((Number(page) - 1) * 5, (Number(page) - 1) * 5 + 5)
