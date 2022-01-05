@@ -2,11 +2,11 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { generatePath, Link } from "react-router-dom";
 import { StyledTableCell, StyledTableRow } from "../layaut/table-layaut";
-import { useStyles } from "../layaut/avatar-layaut";
+import { avatarUseStyles } from "../layaut/avatar-layaut";
 
 export const GetMemberTableRow = (props) => {
   const { member } = props;
-  const classes = useStyles();
+  const classes = avatarUseStyles();
 
   return (
     <StyledTableRow key={member.id}>

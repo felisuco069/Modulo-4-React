@@ -6,50 +6,32 @@ import TableBody from "@material-ui/core/TableBody";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { getMembers } from "./api";
+import { getMembers,getCharacters  } from "./api";
 import { GetMemberTableRow } from "./common-app/members-table-row";
+import { GetCharacterTableRow } from "./common-app/characters-row";
 import { MyContext } from "./core/myContext";
 import { StyledTableCell, useStyles } from "./layaut/table-layaut";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { PaginationControlled } from "./common-app/pagination";
 
-export const ListPage: React.FC = () => {
-  const { page } = useParams();
+export const ListOfCharacters: React.FC = () => {
+    const { listPage } = React.useContext(MyContext);
   const navigate = useNavigate();
-  const [pages, setPages] = useState(1);
-  const {
-    inputValue,
-    setInputValue,
-    members,
-    setMembers,
-    listPage,
-    setListPage,
-  } = React.useContext(MyContext);
-
+  const [characters, setCharacters] = useState([]);
+  
   React.useEffect(() => {
-    getMembers(inputValue).then((data) => {
-      setMembers(
-        data.slice((Number(page) - 1) * 5, (Number(page) - 1) * 5 + 5)
-      );
-      setPages(Math.ceil(data.length / 5));
-      setListPage(Number(page));
-    });
-  }, [page]);
+    getCharacters().then((data) =>{
+      console.log(data.results)
+      setCharacters(data.results)
+    })
+  }, []);
 
-  const handleClick = () => {
-    navigate(`/list/1`);
-    getMembers(inputValue).then((data) => {
-      setMembers(
-        data.slice((Number(page) - 1) * 5, (Number(page) - 1) * 5 + 5)
-      );
-      setPages(Math.ceil(data.length / 5));
-    });
-  };
-  const classes = useStyles();
+    const classes = useStyles();
   return (
     <>
-      <h2>Hello from List page</h2>
-      <div>
+      <h2>Hello from Character page</h2>
+      <Link to={`/list/${listPage}`}>Back to list page</Link>
+      {/* <div>
         <TextField
           size="small"
           id="outlined-search"
@@ -62,24 +44,24 @@ export const ListPage: React.FC = () => {
         <Button variant="contained" color="primary" onClick={handleClick}>
           Search
         </Button>
-      </div>
+      </div> */}
+
       <TableContainer component={Paper} className="table">
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Avatar</StyledTableCell>
-              <StyledTableCell align="center">Id</StyledTableCell>
               <StyledTableCell align="center">Name</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {members.map((member) => (
-              <GetMemberTableRow key={member.id} member={member} />
+            {characters.map((character) => (
+              <GetCharacterTableRow key={character.id} character={character} />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <PaginationControlled pages={pages} />
+      {/* <PaginationControlled pages={pages} /> */}
     </>
   );
 };
