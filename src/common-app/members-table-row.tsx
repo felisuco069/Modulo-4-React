@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { generatePath, Link } from "react-router-dom";
-import { StyledTableCell, StyledTableRow } from "../layaut/table-layaut";
+import { StyledTableCell, StyledTableRow } from "../layaut/common-layout";
 import { avatarUseStyles } from "../layaut/avatar-layaut";
 
 export const GetMemberTableRow = (props) => {

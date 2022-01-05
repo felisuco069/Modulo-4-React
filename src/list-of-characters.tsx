@@ -1,50 +1,62 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { getMembers,getCharacters  } from "./api";
-import { GetMemberTableRow } from "./common-app/members-table-row";
+import { getCharacters } from "./api";
 import { GetCharacterTableRow } from "./common-app/characters-row";
 import { MyContext } from "./core/myContext";
-import { StyledTableCell, useStyles } from "./layaut/table-layaut";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { PaginationControlled } from "./common-app/pagination";
+import { characterUseStyles } from "./layaut/character-layaut";
+import { StyledTableCell } from "./layaut/common-layout";
 
 export const ListOfCharacters: React.FC = () => {
-    const { listPage } = React.useContext(MyContext);
-  const navigate = useNavigate();
+  const { listPage } = React.useContext(MyContext);
   const [characters, setCharacters] = useState([]);
-  
+  const [inputValue, setInputValue] = useState("Name Character");
+  const [debounce, setDebounce] = useState(inputValue);
   React.useEffect(() => {
-    getCharacters().then((data) =>{
-      console.log(data.results)
-      setCharacters(data.results)
-    })
+    const timer = setTimeout(() => {
+      setDebounce(inputValue);
+    }, 1500);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [inputValue]);
+
+  React.useEffect(() => {
+    getCharacters().then((data) => {
+      setCharacters(data.results);
+    });
   }, []);
 
-    const classes = useStyles();
+  const classes = characterUseStyles();
   return (
     <>
-      <h2>Hello from Character page</h2>
-      <Link to={`/list/${listPage}`}>Back to list page</Link>
-      {/* <div>
-        <TextField
-          size="small"
-          id="outlined-search"
-          label="Search field"
-          type="search"
-          variant="outlined"
-          onChange={(e) => setInputValue(e.target.value)}
-          value={inputValue}
-        />
-        <Button variant="contained" color="primary" onClick={handleClick}>
-          Search
-        </Button>
-      </div> */}
+      <div className={classes.title}>
+        <h2>Hello from Character page</h2>
+        <Link className={classes.return} to={`/list/${listPage}`}>
+          Back to list page
+        </Link>
+        {
+          <div>
+            <TextField
+              className={classes.input}
+              size="small"
+              id="outlined-search"
+              label="Search field"
+              type="search"
+              variant="outlined"
+              onChange={(e) => setInputValue(e.target.value)}
+              value={inputValue}
+            />
+          </div>
+        }
+      </div>
 
       <TableContainer component={Paper} className="table">
         <Table className={classes.table} aria-label="customized table">

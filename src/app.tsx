@@ -2,9 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LoginPage } from "./login";
 import { ListPage } from "./list";
-import { DetailPage } from "./detail";
+import { DetailPage } from "./member-detail";
 import { ListOfCharacters } from "./list-of-characters";
-
 
 export const App = () => {
   return (

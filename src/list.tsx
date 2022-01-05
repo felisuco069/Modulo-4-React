@@ -9,7 +9,8 @@ import Paper from "@material-ui/core/Paper";
 import { getMembers } from "./api";
 import { GetMemberTableRow } from "./common-app/members-table-row";
 import { MyContext } from "./core/myContext";
-import { StyledTableCell, useStyles } from "./layaut/table-layaut";
+import { useStyles } from "./layaut/table-layaut";
+import { StyledTableCell } from "./layaut/common-layout";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { PaginationControlled } from "./common-app/pagination";
 
