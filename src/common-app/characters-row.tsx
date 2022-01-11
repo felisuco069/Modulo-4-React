@@ -1,11 +1,14 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
-import { generatePath, Link } from "react-router-dom";
 import { StyledTableCell, StyledTableRow } from "../layaut/common-layout";
 import { avatarUseStyles } from "../layaut/avatar-layaut";
-import { SimpleModal } from "./character-modal";
+import { Character } from "../models/character-model";
 
-export const GetCharacterTableRow = (props) => {
+interface Props {
+  character: Character;
+}
+
+export const GetCharacterTableRow = (props: Props) => {
   const { character } = props;
   const classes = avatarUseStyles();
 
@@ -14,13 +17,7 @@ export const GetCharacterTableRow = (props) => {
       <StyledTableCell>
         <Avatar src={character.image} className={classes.root} />
       </StyledTableCell>
-      <StyledTableCell align="center">
-        {/* <SimpleModal character={character} /> */}
-
-        {/* <Link to={"/characterdetail"}> */}
-        {character.name}
-        {/* </Link> */}
-      </StyledTableCell>
+      <StyledTableCell align="center">{character.name}</StyledTableCell>
     </StyledTableRow>
   );
 };

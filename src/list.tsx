@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import { getMembers } from "./api";
 import { GetMemberTableRow } from "./common-app/members-table-row";
 import { MyContext } from "./core/myContext";
-import { useStyles } from "./layaut/table-layaut";
+import { useStyles } from "./layaut/member-list-layaut";
 import { StyledTableCell } from "./layaut/common-layout";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { PaginationControlled } from "./common-app/pagination";
@@ -49,21 +49,26 @@ export const ListPage: React.FC = () => {
   const classes = useStyles();
   return (
     <>
-      <h2>Hello from List page</h2>
-      <Link to="/listofcharacters">Go to Rick and Morty characters</Link>
-      <div>
-        <TextField
-          size="small"
-          id="outlined-search"
-          label="Search field"
-          type="search"
-          variant="outlined"
-          onChange={(e) => setInputValue(e.target.value)}
-          value={inputValue}
-        />
-        <Button variant="contained" color="primary" onClick={handleClick}>
-          Search
-        </Button>
+      <div className={classes.title}>
+        <h2>Hello from List page</h2>
+        <Link className={classes.goTo} to="/listofcharacters">
+          Go to Rick and Morty characters
+        </Link>
+        <div>
+          <TextField
+            className={classes.input}
+            size="small"
+            id="outlined-search"
+            label="Search field"
+            type="search"
+            variant="outlined"
+            onChange={(e) => setInputValue(e.target.value)}
+            value={inputValue}
+          />
+          <Button variant="contained" color="primary" onClick={handleClick}>
+            Search
+          </Button>
+        </div>
       </div>
 
       <TableContainer component={Paper} className="table">

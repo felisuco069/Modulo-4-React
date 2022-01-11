@@ -1,5 +1,5 @@
 import React from "react";
-import { Context } from "../models/member-model";
+import { Context } from "../models/members-model";
 
 export const MyContext = React.createContext<Context>({
   inputValue: "",
@@ -14,6 +14,7 @@ export const MyContextProvider: React.FC = ({ children }) => {
   const [inputValue, setInputValue] = React.useState("lemoncode");
   const [members, setMembers] = React.useState([]);
   const [listPage, setListPage] = React.useState(1);
+
   return (
     <MyContext.Provider
       value={{

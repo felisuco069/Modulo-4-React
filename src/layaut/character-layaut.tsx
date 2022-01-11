@@ -22,6 +22,7 @@ export const characterUseStyles = makeStyles((theme: Theme) => ({
   },
   paper: {
     position: "absolute",
+    width: "auto",
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -36,11 +37,17 @@ export const characterUseStyles = makeStyles((theme: Theme) => ({
     },
   },
   characterDetail: {
-    border: "2px solid #000",
     display: "flex",
+    flexDirection: "column",
     alignItems: "top",
-    width: "180",
+    width: "auto",
     flexWrap: "nowrap",
-    "& > span": {},
+    padding: "0 16px",
+    "& > span": {
+      padding: "1px 0",
+    },
+  },
+  container: {
+    display: "flex",
   },
 }));

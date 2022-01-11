@@ -3,8 +3,13 @@ import Avatar from "@material-ui/core/Avatar";
 import { generatePath, Link } from "react-router-dom";
 import { StyledTableCell, StyledTableRow } from "../layaut/common-layout";
 import { avatarUseStyles } from "../layaut/avatar-layaut";
+import { MemberEntity } from "../models/members-model";
 
-export const GetMemberTableRow = (props) => {
+interface Props {
+  member: MemberEntity;
+}
+
+export const GetMemberTableRow = (props: Props) => {
   const { member } = props;
   const classes = avatarUseStyles();
 
