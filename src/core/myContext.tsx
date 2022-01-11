@@ -1,5 +1,5 @@
 import React from "react";
-import { Context } from "../models/model";
+import { Context } from "../models/member-model";
 
 export const MyContext = React.createContext<Context>({
   inputValue: "",
