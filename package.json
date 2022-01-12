@@ -1,7 +1,6 @@
 {
-  "homepage":"https://felisuco069.github.io/Modulo-4-React-Basica/dist",
   "name": "react-example",
-  "versi aon": "1.0.0",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
